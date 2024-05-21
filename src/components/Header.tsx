@@ -17,10 +17,12 @@ const Header = ({session}: {session: Session}) => {
           Marketplace
       </Link>
       <nav className='flex gap-4 *:navbtn'>
-        <button className='border border-blue-600 text-blue-600 inline-flex items-center gap-1 px-4 mr-4'>
-          <FontAwesomeIcon icon={faPlus} className='h-4' />
-          Post a ad
-        </button>
+        <Link 
+          className='border border-blue-600 text-blue-600 inline-flex items-center gap-1 px-4 mr-4'
+          href={"/new"}>
+            <FontAwesomeIcon icon={faPlus} className='h-4' />
+            Post a ad
+        </Link>
         <span className='border-r'></span>
         {!session?.user && (
           <>
