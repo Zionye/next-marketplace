@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Uploader from '@/components/Uploader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
@@ -11,6 +11,8 @@ type Props = {
 }
 
 const UploadArea = ({files, setFiles}: Props) => {
+  const [isUploading, setIsUploading] = useState(false);
+  
   return (
     <div className='bg-gray-100 p-4 rounded'>
       <h2 className='text-center text-xs text-gray-400 uppercase font-bold'>
@@ -19,15 +21,30 @@ const UploadArea = ({files, setFiles}: Props) => {
       <div className="flex flex-col">
         <FontAwesomeIcon icon={faImage} className='h-24 text-gray-300' />
 
-        <label className='upload-btn cursor-pointer mt-2 border px-4 py-2 rounded inline-flex gap-1 items-center justify-center'>
-          <Uploader onSuccess={
-            file => {
+        <label className={
+          'upload-btn mt-2 border px-4 py-2 rounded inline-flex gap-1 items-center justify-center '
+          + (
+            isUploading
+              ? 'text-gray-400 cursor-not-allowed'
+              : "border-blue-600 text-blue-600 cursor-pointer"
+          )
+        }>
+          <Uploader 
+            onUploadStart={() => setIsUploading(true)}
+            onSuccess={file => {
               console.log('Uploader success file: ', file);
               setFiles(prov => [...prov, file]);
+              setIsUploading(false);
             }}
           />
-          <FontAwesomeIcon icon={faPlus} />
-          <span>Add photo</span>
+          {isUploading ? (
+            <span>Uploading...</span>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faPlus} />
+              <span>Add photo</span>
+            </>
+          )}
         </label>
 
         {files.map(file => (

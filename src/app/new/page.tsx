@@ -9,7 +9,7 @@ const NewAdPage = () => {
   const [files, setFiles] = useState<UploadResponse[]>([]);
 
   return (
-    <form action="" className='max-w-xl mx-auto flex gap-8'>
+    <form action="" className='max-w-xl mx-auto grid grid-cols-2 gap-8'>
       <div className='grow pt-8'>
 
         <UploadArea files={files} setFiles={setFiles}/>
