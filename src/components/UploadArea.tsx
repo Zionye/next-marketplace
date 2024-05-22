@@ -19,17 +19,16 @@ const UploadArea = ({files, setFiles}: Props) => {
       <div className="flex flex-col">
         <FontAwesomeIcon icon={faImage} className='h-24 text-gray-300' />
 
-        <Uploader onSuccess={
-          file => {
-            console.log('Uploader success file: ', file);
-            setFiles(prov => [...prov, file]);
-          }}
-        />
-
-        <button className='mt-2 border border-blue-600 text-blue-600 px-4 py-2 rounded'>
+        <label className='upload-btn cursor-pointer mt-2 border px-4 py-2 rounded inline-flex gap-1 items-center justify-center'>
+          <Uploader onSuccess={
+            file => {
+              console.log('Uploader success file: ', file);
+              setFiles(prov => [...prov, file]);
+            }}
+          />
           <FontAwesomeIcon icon={faPlus} />
           <span>Add photo</span>
-        </button>
+        </label>
 
         {files.map(file => (
           <div 
