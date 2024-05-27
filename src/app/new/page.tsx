@@ -1,4 +1,5 @@
 "use client";
+import AdTextInputs from '@/components/AdTextInputs';
 import UploadArea from '@/components/UploadArea';
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons/faLocationCrosshairs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,25 +29,7 @@ const NewAdPage = () => {
 
 
       <div className='grow pt-2'>
-        <label htmlFor="titleIn">Title</label>
-        <input id='titleIn' type="text" placeholder='Title'/>
-
-        <label htmlFor="priceIn">Price</label>
-        <input id='priceIn' type="number" placeholder='Price'/>
-
-        <label htmlFor="categoryIn">Category</label>
-        <select name="" id="categoryIn">
-          <option selected disabled value="">select category</option>
-          <option value="">Cart</option>
-          <option value="">Electronics</option>
-          <option value="">Properties</option>
-        </select>
-
-        <label htmlFor="descriptionIn">Description</label>
-        <textarea name="" id="descriptionIn" placeholder='description'></textarea>
-
-        <label htmlFor="mobileIn">Mobile</label>
-        <textarea name="" id="mobileIn" placeholder='mobile'></textarea>
+        <AdTextInputs />
 
         <button className='mt-2 bg-blue-600 text-white px-6 py-2 rounded'>
           publish
