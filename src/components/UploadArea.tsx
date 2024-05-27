@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
 import { UploadResponse } from 'imagekit/dist/libs/interfaces';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import UploadThumbnail from './UploadThumbnail';
 
 type Props = {
   files: UploadResponse[];
@@ -47,13 +48,13 @@ const UploadArea = ({files, setFiles}: Props) => {
           )}
         </label>
 
-        {files.map(file => (
-          <div 
-            className='text-xs'
-            key={file.fileId}>
-              {file.url}
-          </div>
-        ))}
+        <div className='flex flex-wrap gap-2 mt-2'>
+          {files.map(file => (
+            <div className="size-16 rounded overflow-hidden"  key={file.fileId}>
+              <UploadThumbnail file={file}/>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
