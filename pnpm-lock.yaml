@@ -35,6 +35,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.3.1(react@18.3.1)
+  react-google-map-picker:
+    specifier: ^1.2.3
+    version: 1.2.3(react@18.3.1)
 
 devDependencies:
   '@types/node':
@@ -2485,6 +2488,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+    dev: false
+
+  /react-google-map-picker@1.2.3(react@18.3.1):
+    resolution: {integrity: sha512-XeIj0Eh0vhNToMTebQQrt5O9fdPRDf4KtG8J22xupH7Pu49J1dP5UuhfCM6VmK2nIv5ECyQUpOT6+gZgGaQhJA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^17.0.0
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react-is@16.13.1:

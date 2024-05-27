@@ -5,6 +5,7 @@ import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons/faLocati
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadResponse } from 'imagekit/dist/libs/interfaces/UploadResponse';
 import { useState } from 'react';
+import MapPicker from 'react-google-map-picker';
 
 const NewAdPage = () => {
   const [files, setFiles] = useState<UploadResponse[]>([]);
