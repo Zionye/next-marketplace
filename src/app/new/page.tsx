@@ -5,13 +5,22 @@ import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons/faLocati
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadResponse } from 'imagekit/dist/libs/interfaces/UploadResponse';
 import { useState } from 'react';
-import MapPicker from 'react-google-map-picker';
+// import MapPicker from 'react-google-map-picker';
+import { createAd } from '../actions /adActions';
 
 const NewAdPage = () => {
   const [files, setFiles] = useState<UploadResponse[]>([]);
 
+  const handleSubmit = async (formData: FormData) => {
+    formData.set('files', JSON.stringify(files));
+    await createAd(formData);
+
+  };
+
   return (
-    <form action="" className='max-w-xl mx-auto grid grid-cols-2 gap-8'>
+    <form 
+      action={handleSubmit} 
+      className='max-w-xl mx-auto grid grid-cols-2 gap-8'>
       <div className='grow pt-8'>
 
         <UploadArea files={files} setFiles={setFiles}/>

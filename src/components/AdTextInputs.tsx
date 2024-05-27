@@ -4,24 +4,24 @@ const AdTextInputs = () => {
   return (
     <>
       <label htmlFor="titleIn">Title</label>
-      <input id='titleIn' type="text" placeholder='Title'/>
+      <input name='title' id='titleIn' type="text" placeholder='Title'/>
 
       <label htmlFor="priceIn">Price</label>
-      <input id='priceIn' type="number" placeholder='Price'/>
+      <input name='price' id='priceIn' type="number" placeholder='Price'/>
 
       <label htmlFor="categoryIn">Category</label>
-      <select name="" id="categoryIn">
+      <select name="category" id="categoryIn">
         <option selected disabled value="">select category</option>
-        <option value="">Cart</option>
-        <option value="">Electronics</option>
-        <option value="">Properties</option>
+        <option value="Cart">Cart</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Properties">Properties</option>
       </select>
 
       <label htmlFor="descriptionIn">Description</label>
-      <textarea name="" id="descriptionIn" placeholder='description'></textarea>
+      <textarea name="description" id="descriptionIn" placeholder='description'></textarea>
 
-      <label htmlFor="mobileIn">Mobile</label>
-      <textarea name="" id="mobileIn" placeholder='mobile'></textarea>
+      <label htmlFor="contactIn">Contact information</label>
+      <textarea name="contact" id="contactIn" placeholder='mobile'></textarea>
     </>
   )
 }
