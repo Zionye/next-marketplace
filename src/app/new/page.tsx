@@ -7,6 +7,7 @@ import { UploadResponse } from 'imagekit/dist/libs/interfaces/UploadResponse';
 import { useState } from 'react';
 // import MapPicker from 'react-google-map-picker';
 import { createAd } from '../actions/adActions';
+import SubmitButton from '@/components/SubmitButton';
 
 const locationDefault = {
   lat: 59.432226005726896,
@@ -15,14 +16,11 @@ const locationDefault = {
 
 const NewAdPage = () => {
   const [files, setFiles] = useState<UploadResponse[]>([]);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const handleSubmit = async (formData: FormData) => {
-    setIsSaving(true);
     formData.set('files', JSON.stringify(files));
     formData.set('location', JSON.stringify(locationDefault));
     const result = await createAd(formData);
-    setIsSaving(false);
     console.log('result: ', { result} );
 
   };
@@ -51,9 +49,7 @@ const NewAdPage = () => {
       <div className='grow pt-2'>
         <AdTextInputs />
 
-        <button className='mt-2 bg-blue-600 text-white px-6 py-2 rounded'>
-          {isSaving ? "isSaving..." : "publish"}
-        </button>
+        <SubmitButton>Publish</SubmitButton>
       </div>
 
     </form>
