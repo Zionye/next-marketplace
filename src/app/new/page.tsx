@@ -6,14 +6,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadResponse } from 'imagekit/dist/libs/interfaces/UploadResponse';
 import { useState } from 'react';
 // import MapPicker from 'react-google-map-picker';
-import { createAd } from '../actions /adActions';
+import { createAd } from '../actions/adActions';
+
+const locationDefault = {
+  lat: 59.432226005726896,
+  lng: 18.057839558207103,
+}
 
 const NewAdPage = () => {
   const [files, setFiles] = useState<UploadResponse[]>([]);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const handleSubmit = async (formData: FormData) => {
+    setIsSaving(true);
     formData.set('files', JSON.stringify(files));
-    await createAd(formData);
+    formData.set('location', JSON.stringify(locationDefault));
+    const result = await createAd(formData);
+    setIsSaving(false);
+    console.log('result: ', { result} );
 
   };
 
@@ -42,7 +52,7 @@ const NewAdPage = () => {
         <AdTextInputs />
 
         <button className='mt-2 bg-blue-600 text-white px-6 py-2 rounded'>
-          publish
+          {isSaving ? "isSaving..." : "publish"}
         </button>
       </div>
 
