@@ -8,6 +8,7 @@ import { useState } from 'react';
 // import MapPicker from 'react-google-map-picker';
 import { createAd } from '../actions/adActions';
 import SubmitButton from '@/components/SubmitButton';
+import { redirect } from 'next/navigation';
 
 const locationDefault = {
   lat: 59.432226005726896,
@@ -20,9 +21,11 @@ const NewAdPage = () => {
   const handleSubmit = async (formData: FormData) => {
     formData.set('files', JSON.stringify(files));
     formData.set('location', JSON.stringify(locationDefault));
+
     const result = await createAd(formData);
     console.log('result: ', { result} );
 
+    redirect(`/ad/${result._id}`);
   };
 
   return (
