@@ -15,7 +15,7 @@ textarea {
   @apply w-full border p-2;
 }
 
-form label {
+label {
   @apply text-xs text-gray-600 font-bold uppercase block mt-4 mb-1;
 }
 

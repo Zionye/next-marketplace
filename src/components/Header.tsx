@@ -10,7 +10,7 @@ const Header = ({session}: {session: Session|null}) => {
   console.log('session: ', session);
 
   return (
-    <header className='border-b p-4 flex items-center justify-between'>
+    <header className='border-b p-4 flex items-center justify-between h-16'>
       <Link 
         className='text-blue-600 font-bold text-2xl' 
         href="/">
