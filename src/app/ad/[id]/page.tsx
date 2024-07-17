@@ -1,11 +1,8 @@
 'use server';
 
 import Gallery from "@/components/Gallery";
-// import UploadThumbnail from "@/components/UploadThumbnail";
-// import UploadView from "@/components/UploadView";
 import { connect } from "@/libs/helpers";
 import { AdModel } from "@/models/Ad";
-// import { useEffect } from "react";
 
 type Props = {
   params: {
@@ -31,22 +28,6 @@ const SingleAdPage = async (args: Props) => {
       <div className="w-3/5 grow bg-black text-white flex flex-col relative">
         <Gallery files={adDoc.files} />
       </div>
-      {/* <div className="grow bg-black text-white flex flex-col">
-        <div className="grow flex items-center p-4">
-          {adDoc.files?.length > 0 && (
-            <div>
-              <UploadView file={adDoc.files[0]}/>
-            </div>
-          )}
-        </div>
-        <div className="p-4 flex gap-4">
-          {adDoc.files.map(file => (
-            <div key={file.fileId} className="size-14">
-              <UploadThumbnail file={file} />
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       <div className="w-2/5 p-8 grow shrink-0">
         <div className="text-lg font-bold">{adDoc.title}</div>
