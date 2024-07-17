@@ -1,17 +1,25 @@
-"use client";
-import Image, { ImageProps } from "next/image";
+'use client';
+import Image, {ImageProps} from "next/image";
 
 type LoaderProps = {
   src: string;
   width: number;
-  quality?: number | undefined;
+  height?: number;
+  quality?: number | undefined
+  aiCrop?: boolean;
 };
 
-const imageKitLoader = ({ src, width, quality }: LoaderProps) => {
+const imageKitLoader = ({ src, width, height, quality, aiCrop }: LoaderProps) => {
   if(src[0] === "/") src = src.slice(1);
   const params = [`w-${width}`];
+  if (height && aiCrop) {
+    params.push(`h-${height}`);
+  }
   if (quality) {
     params.push(`q-${quality}`);
+  }
+  if (aiCrop) {
+    params.push('fo-auto');
   }
   const paramsString = params.join(",");
   var urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_ENDPOINTS as string;
@@ -19,10 +27,23 @@ const imageKitLoader = ({ src, width, quality }: LoaderProps) => {
   return `${urlEndpoint}/${src}?tr=${paramsString}`
 }
 
-const MyImage = (props: ImageProps) => {
+type MyImageProps = ImageProps & {
+  aiCrop?: boolean;
+  width: number;
+  height?: number;
+};
+
+const MyImage = ({width,height,aiCrop,...props}:MyImageProps) => {
   return (
     <Image
-      loader={imageKitLoader}
+      loader={args => imageKitLoader({
+        ...args,
+        width,
+        height,
+        aiCrop
+      })}
+      width={width}
+      height={height}
       {...props}
     />
   );

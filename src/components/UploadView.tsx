@@ -1,15 +1,15 @@
-import { UploadResponse } from 'imagekit/dist/libs/interfaces';
-import MyImage from './MyImage';
+import MyImage from "@/components/MyImage";
+import {UploadResponse} from "imagekit/dist/libs/interfaces";
 
-const UploadView = ({file}: {file: UploadResponse}) => {
-  if(file.fileType === "image"){
-    return(
-      <MyImage 
-        src={file.filePath} 
-        alt={'produce photo'} 
-        width={1000} 
-        height={1000}
-        className='w-full h-auto'
+export default function UploadView({file}:{file:UploadResponse}) {
+  if (file.fileType === 'image') {
+    return (
+      <MyImage
+        src={file.filePath}
+        alt={'product photo'}
+        width={2048}
+        height={2048}
+        className="w-auto h-auto max-w-full max-h-full rounded"
       />
     );
   }
@@ -18,7 +18,5 @@ const UploadView = ({file}: {file: UploadResponse}) => {
     <>
       {file.name}
     </>
-  )
+  );
 }
-
-export default UploadView

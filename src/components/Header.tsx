@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react'
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
 
 const Header = ({session}: {session: Session|null}) => {
   console.log('session: ', session);
@@ -28,7 +28,7 @@ const Header = ({session}: {session: Session|null}) => {
           <>
             <button className='border-0 text-gray-600'>Sign up</button>
             <button 
-              className='bg-blue-600 text-white border-0 px-6'
+              className='bg-blue-600 text-white border-0 px-6 py-1'
               onClick={() => signIn("google")}>
                 Login
             </button>

@@ -1,10 +1,11 @@
 'use server';
 
-import UploadThumbnail from "@/components/UploadThumbnail";
-import UploadView from "@/components/UploadView";
+import Gallery from "@/components/Gallery";
+// import UploadThumbnail from "@/components/UploadThumbnail";
+// import UploadView from "@/components/UploadView";
 import { connect } from "@/libs/helpers";
 import { AdModel } from "@/models/Ad";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 type Props = {
   params: {
@@ -27,7 +28,10 @@ const SingleAdPage = async (args: Props) => {
   return (
     // <div>{JSON.stringify(args)}</div>
     <div className="flex absolute inset-0 top-16">
-      <div className="grow bg-black text-white flex flex-col">
+      <div className="w-3/5 grow bg-black text-white flex flex-col relative">
+        <Gallery files={adDoc.files} />
+      </div>
+      {/* <div className="grow bg-black text-white flex flex-col">
         <div className="grow flex items-center p-4">
           {adDoc.files?.length > 0 && (
             <div>
@@ -42,7 +46,7 @@ const SingleAdPage = async (args: Props) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="w-2/5 p-8 grow shrink-0">
         <div className="text-lg font-bold">{adDoc.title}</div>
