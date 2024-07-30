@@ -7,16 +7,39 @@ export default function Home() {
   const [ads, setAds] = useState<Ad[] | null>(null);
 
   useEffect(() => {
-    fetch("/api/ads").then(response => {
+    fetchAds();
+  }, []);
+
+  const fetchAds = (params?: URLSearchParams) => {
+    if (!params) {
+      params = new URLSearchParams();
+    }
+    const url = `/api/ads?${params?.toString() || ''}`;
+    fetch(url).then(response => {
       response.json().then(adsDoc => {
         setAds(adsDoc);
       });
     })
-  }, []);
+  };
+
+  const handleSearch = (formData: FormData) => {
+    console.log('formData: ', Object.fromEntries(formData));
+
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if(typeof value === 'string'){
+        params.set(key, value);
+      }
+    });
+    fetchAds(params);
+  };
+
   return (
     <div className="flex w-full">
-      <div className="bg-gray-300 grow w-1/4">left</div>
-      <div className="p-4 grow w-3/4">
+      <form action={handleSearch} className="bg-white grow w-1/4 p-4 border-r">
+        <input name="phrase" type="text" placeholder="Search Marketplace" />
+      </form>
+      <div className="bg-gray-100 p-4 grow w-3/4">
         <h2 className="font-bold mt-2 mb-4">Latest products</h2>
         <div className="grid md:grid-cols-4 gap-x-4 gap-y-6">
           {ads && ads.map(ad => (

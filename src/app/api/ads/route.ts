@@ -1,8 +1,20 @@
 import { connect } from "@/libs/helpers";
-import { AdModel } from "@/models/Ad";
+import { Ad, AdModel } from "@/models/Ad";
+import { FilterQuery } from "mongoose";
 
-export const GET = async () => {
+export const GET = async (req: Request, res: Response) => {
+  console.log('req: ---', req);
+  const { searchParams } = new URL(req.url);
+  const filter: FilterQuery<Ad> = {};
+
+  const phrase = searchParams.get('phrase') || null;
+
+  if(phrase){
+    // filter.title = {$regex: ".*" +phrase + ".*"};
+    filter.title = {$regex: `.*${phrase}.*`, $options: 'i'};
+  }
+
    await connect();
-   const adsDocs = await AdModel.find({}, null, {sort:{createdAt: -1}});
+   const adsDocs = await AdModel.find(filter, null, {sort:{createdAt: -1}});
    return Response.json(adsDocs);
 }
