@@ -1,3 +1,4 @@
+import { categories } from '@/libs/helpers'
 import React from 'react'
 
 const AdTextInputs = () => {
@@ -12,9 +13,9 @@ const AdTextInputs = () => {
       <label htmlFor="categoryIn">Category</label>
       <select name="category" id="categoryIn">
         <option selected disabled value="">select category</option>
-        <option value="Cart">Cart</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Properties">Properties</option>
+        {categories.map(({key:categoryKey,label:categoryLabel}) => (
+          <option key={categoryKey} value={categoryKey}>{categoryLabel}</option>
+        ))}
       </select>
 
       <label htmlFor="descriptionIn">Description</label>

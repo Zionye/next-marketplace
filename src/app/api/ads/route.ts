@@ -8,10 +8,14 @@ export const GET = async (req: Request, res: Response) => {
   const filter: FilterQuery<Ad> = {};
 
   const phrase = searchParams.get('phrase') || null;
+  const category = searchParams.get('category') || null;
 
   if(phrase){
     // filter.title = {$regex: ".*" +phrase + ".*"};
     filter.title = {$regex: `.*${phrase}.*`, $options: 'i'};
+  }
+  if(category){
+    filter.category = category;
   }
 
    await connect();
