@@ -3,13 +3,13 @@ import { Ad } from "@/models/Ad";
 import { useEffect, useRef, useState } from "react";
 import AdItem from "@/components/AdItem";
 import { categories } from "@/libs/helpers";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStore } from "@fortawesome/free-solid-svg-icons";
+import LabelRadioButton from "@/components/LabelRadioButton";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function Home() {
   const [ads, setAds] = useState<Ad[] | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
-  // const submitRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     fetchAds();
@@ -48,35 +48,38 @@ export default function Home() {
           <input name="phrase" type="text" placeholder="Search Marketplace" />
 
           <div className="flex flex-col gap-0">
-            <label 
-              // onClick={()=>submitRef.current?.click()}
-              className="radio-btn group">
-              <input 
+            <LabelRadioButton
+                name="category" 
+                value={''}
+                icon={faStore} 
                 onClick={()=>formRef.current?.requestSubmit()}
-                className="hidden" type="radio" name="category" value="" defaultChecked/>
-                <span className="icon group-has-[:checked]:bg-blue-500 group-has-[:checked]:text-white">
-                  <FontAwesomeIcon icon={faStore} />
-                </span>
-                All categories
-            </label>
+                label={'All categories'}
+                defaultChecked={true}/>
 
             {categories.map(({key:categoryKey,label:categoryLabel, icon:categoryIcon}) => (
-              <label 
-                // onClick={()=>submitRef.current?.click()}
-                className="radio-btn group" key={categoryKey}>
-                <input 
-                  onClick={()=>formRef.current?.requestSubmit()}
-                  value={categoryKey}
-                  className="hidden" type="radio" name="category" />
-                <span className="icon group-has-[:checked]:bg-blue-500 group-has-[:checked]:text-white">
-                  <FontAwesomeIcon icon={categoryIcon} />
-                </span>
-                {categoryLabel}
-              </label>
+              <LabelRadioButton 
+                key={'categoryKey'}
+                name="category" 
+                value={categoryKey} 
+                icon={categoryIcon} 
+                onClick={()=>formRef.current?.requestSubmit()}
+                label={categoryLabel}/>
             ))}
           </div>
 
-          {/* <button ref={submitRef} type="submit"></button> */}
+          <div>
+            <label>filter by price</label>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <input name="min" type="number" placeholder="min"/>
+              </div>
+              <div>
+                <input name="max" type="number" placeholder="max"/>
+              </div>
+            </div>
+          </div>
+
+          <SubmitButton>Search</SubmitButton>
       </form>
 
       <div className="bg-gray-100 p-4 grow w-3/4">
