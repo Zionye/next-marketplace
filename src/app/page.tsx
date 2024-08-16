@@ -46,6 +46,13 @@ export default function Home() {
             <AdItem ad={ad} key={ad._id} />
           ))}
         </div>
+
+        {ads && ads?.length === 0 && (
+          <div className="text-gray-400">No products found</div>
+        )}
+        {ads === null && (
+          <div className="text-gray-400">Loading...</div>
+        )}
       </div>
     </div>
   );
