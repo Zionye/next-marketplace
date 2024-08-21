@@ -6,6 +6,7 @@ import SearchForm from "@/components/SearchForm";
 
 export default function Home() {
   const [ads, setAds] = useState<Ad[] | null>(null);
+  const [adsParams, setAdsParams] = useState<URLSearchParams>(new URLSearchParams);
 
   useEffect(() => {
     fetchAds();
@@ -19,6 +20,7 @@ export default function Home() {
     fetch(url).then(response => {
       response.json().then(adsDoc => {
         setAds(adsDoc);
+        setAdsParams(params);
       });
     })
   };
@@ -35,12 +37,19 @@ export default function Home() {
     fetchAds(params);
   };
 
+  const formDirty = adsParams.get('phrase')
+    || adsParams.get('category')
+    || adsParams.get('min')
+    || adsParams.get('max');
+
   return (
     <div className="flex w-full">
       <SearchForm action={handleSearch} />
 
       <div className="bg-gray-100 p-4 grow w-3/4">
-        <h2 className="font-bold mt-2 mb-4">Latest products</h2>
+        <h2 className="font-bold mt-2 mb-4">
+          {formDirty ? 'Search results' : 'Latest ads'}
+        </h2>
         <div className="grid md:grid-cols-4 gap-x-4 gap-y-6">
           {ads && ads.map(ad => (
             <AdItem ad={ad} key={ad._id} />
