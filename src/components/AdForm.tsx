@@ -52,7 +52,7 @@ const AdForm = ({
 
         <UploadArea files={files} setFiles={setFiles}/>
 
-        <div className='mt-8'>
+        {/* <div className='mt-8'>
           <label htmlFor="">Where is it located?</label>
           <button className='w-full flex items-center justify-center gap-1 py-1 border border-gray-400 text-gray-600 rounded'>
             <FontAwesomeIcon icon={faLocationCrosshairs} />
@@ -61,7 +61,7 @@ const AdForm = ({
           <div className='mt-2 bg-gray-100 p-4 min-h-12 rounded text-gray-400 text-center'>
             google maps here
           </div>
-        </div>
+        </div> */}
       </div>
 
 

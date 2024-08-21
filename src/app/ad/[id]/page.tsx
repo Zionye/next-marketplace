@@ -1,12 +1,13 @@
 'use server';
 
 import Gallery from "@/components/Gallery";
+import DeleteAdButton from "@/components/DeleteAdButton";
 import { authOptions } from "@/libs/authOptions";
 import { connect, formatMoney } from "@/libs/helpers";
 import { AdModel } from "@/models/Ad";
 import { getServerSession } from "next-auth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 type Props = {
@@ -44,10 +45,8 @@ const SingleAdPage = async (args: Props) => {
                 <FontAwesomeIcon icon={faPencil}/>
                 <span>Edit</span>
             </Link>
-            <button className="border border-red-600 text-red-600 rounded-md py-1 px-4 inline-flex gap-1 items-center cursor-pointer">
-              <FontAwesomeIcon icon={faTrash}/>
-              <span>Delete</span>
-            </button>
+            
+            <DeleteAdButton id={adDoc._id}/>
           </div>
         )}
         <label>Price</label>

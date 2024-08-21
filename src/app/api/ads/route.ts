@@ -1,6 +1,8 @@
+import { authOptions } from "@/libs/authOptions";
 import { connect } from "@/libs/helpers";
 import { Ad, AdModel } from "@/models/Ad";
 import { FilterQuery } from "mongoose";
+import {getServerSession} from "next-auth";
 
 export const GET = async (req: Request, res: Response) => {
   console.log('req: ---', req);
@@ -26,4 +28,17 @@ export const GET = async (req: Request, res: Response) => {
    await connect();
    const adsDocs = await AdModel.find(filter, null, {sort:{createdAt: -1}});
    return Response.json(adsDocs);
+}
+
+export async function DELETE(req: Request) {
+  const url = new URL(req.url);
+  const id = url.searchParams.get('id');
+  await connect();
+  const adDoc = await AdModel.findById(id);
+  const session = await getServerSession(authOptions);
+  if (!adDoc || adDoc.userEmail !== session?.user?.email) {
+    return Response.json(false);
+  }
+  await AdModel.findByIdAndDelete(id);
+  return Response.json(true);
 }
