@@ -3,7 +3,7 @@
 import Gallery from "@/components/Gallery";
 import DeleteAdButton from "@/components/DeleteAdButton";
 import { authOptions } from "@/libs/authOptions";
-import { connect, formatMoney } from "@/libs/helpers";
+import { connect, formatDate, formatMoney } from "@/libs/helpers";
 import { AdModel } from "@/models/Ad";
 import { getServerSession } from "next-auth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,6 +57,11 @@ const SingleAdPage = async (args: Props) => {
         <p className="text-sm">{adDoc.description}</p>
         <label>contact</label>
         <p className="text-sm">{adDoc.contact}</p>
+
+        <p className="mt-4 text-xs text-gray-400">
+          Posted: {formatDate(adDoc.createdAt)}<br />
+          Last update: {formatDate(adDoc.updatedAt)}
+        </p>
       </div>
     </div>
   )
