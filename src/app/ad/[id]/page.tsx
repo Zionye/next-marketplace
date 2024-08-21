@@ -1,8 +1,13 @@
 'use server';
 
 import Gallery from "@/components/Gallery";
-import { connect } from "@/libs/helpers";
+import { authOptions } from "@/libs/authOptions";
+import { connect, formatMoney } from "@/libs/helpers";
 import { AdModel } from "@/models/Ad";
+import { getServerSession } from "next-auth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 type Props = {
   params: {
@@ -16,7 +21,7 @@ type Props = {
 const SingleAdPage = async (args: Props) => {
   await connect();
   const adDoc = await AdModel.findById(args.params.id);
-  console.log('adDoc:--> ', adDoc);
+  const session = await getServerSession(authOptions);
 
   if(!adDoc){
     return 'Not found!';
@@ -31,6 +36,22 @@ const SingleAdPage = async (args: Props) => {
 
       <div className="w-2/5 p-8 grow shrink-0">
         <div className="text-lg font-bold">{adDoc.title}</div>
+        {session && session?.user?.email === adDoc.userEmail && (
+          <div className="mt-2 flex gap-2">
+            <Link
+              href={`/edit/${adDoc._id}`} 
+              className="border border-blue-600 text-blue-600 rounded-md py-1 px-4 inline-flex gap-1 items-center cursor-pointer">
+                <FontAwesomeIcon icon={faPencil}/>
+                <span>Edit</span>
+            </Link>
+            <button className="border border-red-600 text-red-600 rounded-md py-1 px-4 inline-flex gap-1 items-center cursor-pointer">
+              <FontAwesomeIcon icon={faTrash}/>
+              <span>Delete</span>
+            </button>
+          </div>
+        )}
+        <label>Price</label>
+        <p>{formatMoney(adDoc.price)}</p>
         <label>category</label>
         <p className="text-sm">{adDoc.category}</p>
         <label>description</label>
