@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## 技术栈
+
+Next.js 14
+Typescript
+MongoDB
+ImageKit for image upload
+
+## 项目成果
+
+<image src="./public/image/pastAd.png">
+<image src="./public/image/homepage.png">
+<image src="./public/image/detail.png">
+<image src="./public/image/edit.png">
+<image src="./public/image/signOut.png">
+<image src="./public/image/myAds.png">
+
 ## Getting Started
 
 First, run the development server:
