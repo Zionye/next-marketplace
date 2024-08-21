@@ -1,13 +1,16 @@
 "use client";
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Session } from 'next-auth';
-import { signIn, signOut } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const Header = ({session}: {session: Session|null}) => {
-  console.log('session: ', session);
+  const router = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <header className='border-b p-4 flex items-center justify-between h-16'>
@@ -35,11 +38,36 @@ const Header = ({session}: {session: Session|null}) => {
           </>
         )}
         {session?.user && (
-          <Link href={"/account"}>
-            <Image 
-              src={session.user.image as string} alt={'avatar'} width={34} height={34}
-              className='rounded-md'/>
-          </Link>
+          <>
+            <div className="relative flex items-center">
+              <button onClick={() => setShowDropdown(prev => !prev)}>
+                <Image 
+                  src={session.user.image as string} alt={'avatar'} width={34} height={34}
+                  className={"rounded-md relative "+(showDropdown?'z-50':'')}
+                />
+              </button>
+
+              {showDropdown && (
+                <>
+                  <div
+                    onClick={() => setShowDropdown(false)}
+                    className="bg-black/90 fixed inset-0 z-40" 
+                  />
+                  <div className="absolute z-50 right-0 top-9 bg-white rounded-md w-24 border">
+                    <button
+                      onClick={() => {
+                        setShowDropdown(false);
+                        router.push('/my-ads');
+                      }}
+                      className="p-2 block text-center w-full" >
+                        My ads
+                    </button>
+                    <button className="p-2 block w-full" onClick={() => signOut()}>Logout</button>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
         )}
       </nav>
     </header>
